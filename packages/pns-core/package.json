@@ -1,0 +1,62 @@
+{
+  "name": "@precisa-saude/pns",
+  "version": "0.1.0",
+  "description": "Percentis populacionais ponderados de biomarcadores a partir do microdado da Pesquisa Nacional de Saúde (PNS/IBGE)",
+  "keywords": [
+    "pns",
+    "ibge",
+    "brazil",
+    "biomarker",
+    "percentile",
+    "health-survey"
+  ],
+  "homepage": "https://github.com/Precisa-Saude/pns/tree/main/packages/pns-core#readme",
+  "bugs": "https://github.com/Precisa-Saude/pns/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Precisa-Saude/pns.git",
+    "directory": "packages/pns-core"
+  },
+  "license": "Apache-2.0",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./tables/percentiles-2014-2015.json": "./tables/percentiles-2014-2015.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "tables"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist .turbo",
+    "lint": "eslint src/ --max-warnings 0",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "~5.7.3",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

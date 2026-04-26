@@ -1,0 +1,16 @@
+{
+  "hasPackages": true,
+  "hasSite": false,
+  "nodeVersion": "22",
+  "pnpmVersion": "9.15.9",
+  "publishesToNpm": true,
+  "schemaVersion": 1,
+  "visibility": "oss",
+  "commitScopes": ["core", "archive", "docs", "ci", "deps"],
+  "contactEmails": {
+    "conduct": "conduct@precisa-saude.com.br",
+    "security": "security@precisa-saude.com.br"
+  },
+  "name": "pns",
+  "owner": "Precisa-Saude"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@precisa-saude/pns-archive",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Pipeline interno: baixa o microdado PNS do FTP IBGE, parseia fixed-width, calcula percentis ponderados e materializa o parquet embarcado em @precisa-saude/pns. Não publicado.",
+  "type": "module",
+  "scripts": {
+    "compute": "tsx scripts/compute-percentiles.ts",
+    "fetch:2014-2015": "tsx scripts/fetch-pns-2014-2015.ts",
+    "lint": "eslint scripts/ --max-warnings 0",
+    "parse": "tsx scripts/parse-fixed-width.ts",
+    "provenance": "tsx scripts/emit-provenance.ts",
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@precisa-saude/pns": "workspace:*",
+    "basic-ftp": "^5.0.5",
+    "exceljs": "^4.4.0",
+    "node-stream-zip": "^1.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "~5.7.3",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
