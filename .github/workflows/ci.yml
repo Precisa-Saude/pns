@@ -49,6 +49,16 @@ jobs:
     needs: checks
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     uses: ./.github/workflows/_release.yml
+    # Override the default `require_package_changes: true` guard. The pns
+    # repo has only one publishable package (pns-core) and the bootstrap
+    # situation we hit (workflow + .releaserc fixes that don't touch
+    # packages/**) needs to propagate through a release cycle so
+    # @semantic-release/git can commit the version bump back. With the
+    # guard on, those config tweaks silently no-op the release and the
+    # published npm version drifts further from the git tags. Other
+    # publishable-package repos can keep the guard on; pns opts out.
+    with:
+      require_package_changes: false
     secrets: inherit
 
   publish:
