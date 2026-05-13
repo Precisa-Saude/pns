@@ -20,6 +20,7 @@ import {
   materializeCell,
   type MaterializedCell,
   type Observation,
+  PNS_COUNTRY,
   type PnsAnalyte,
   REGION_CODE_TO_MACRO_REGION_2014_2015,
   type Sex,
@@ -168,6 +169,7 @@ async function main(): Promise<void> {
 
   const cells: MaterializedCell[] = [];
   let suppressed = 0;
+  let countrySuppressed = 0;
   for (const analyte of Object.keys(ANALYTE_TO_COLUMN_2014_2015) as PnsAnalyte[]) {
     for (const region of Object.values(REGION_CODE_TO_MACRO_REGION_2014_2015)) {
       for (const ageBand of AGE_BANDS) {
@@ -188,8 +190,36 @@ async function main(): Promise<void> {
     }
   }
 
+  // Country-level cells: aggregate all observations across regions with the
+  // PNS lab-subsample weight (`w_pes`). PNS is nationally representative —
+  // pooling all observations and computing a single weighted percentile
+  // produces the correct country-wide result. NOT a post-hoc average of
+  // regional percentiles (that would be wrong).
+  for (const analyte of Object.keys(ANALYTE_TO_COLUMN_2014_2015) as PnsAnalyte[]) {
+    for (const ageBand of AGE_BANDS) {
+      for (const sex of ['M', 'F'] as const) {
+        const obs: Observation[] = [];
+        for (const row of rows) {
+          if (row.sex !== sex) continue;
+          if (ageBandFor(row.age) !== ageBand) continue;
+          const v = row.values[analyte];
+          if (v === undefined) continue;
+          obs.push({ value: v, weight: row.weight });
+        }
+        const cell = materializeCell(
+          { ageBand, analyte, region: PNS_COUNTRY, sex, wave: '2014-2015' },
+          obs,
+        );
+        if (cell) cells.push(cell);
+        else countrySuppressed += 1;
+      }
+    }
+  }
+
   console.log(
-    `[compute] ${cells.length} células materializadas, ${suppressed} suprimidas (n<30 ou faltando)`,
+    `[compute] ${cells.length} células materializadas (regionais + Brasil), ` +
+      `${suppressed} regionais suprimidas, ${countrySuppressed} Brasil suprimidas ` +
+      `(n<${30} ou faltando)`,
   );
 
   await mkdir(OUT_DIR, { recursive: true });

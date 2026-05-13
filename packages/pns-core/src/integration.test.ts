@@ -21,13 +21,43 @@ const cells = JSON.parse(readFileSync(TABLE_PATH, 'utf-8')) as MaterializedCell[
 const percentileFor = createLookup(cells);
 
 describe('@precisa-saude/pns — tabela 2014-2015 embarcada', () => {
-  it('cobre as 240 combinações esperadas (6 analitos × 5 regiões × 4 faixas × 2 sexos)', () => {
-    expect(cells).toHaveLength(240);
+  it('cobre as 288 combinações esperadas (6 analitos × (5 regiões + Brasil) × 4 faixas × 2 sexos)', () => {
+    expect(cells).toHaveLength(288);
+  });
+
+  it('inclui as 48 células Brasil (6 analitos × 4 faixas × 2 sexos)', () => {
+    const brasil = cells.filter((c) => c.key.region === 'Brasil');
+    expect(brasil).toHaveLength(48);
   });
 
   it('todas as células atendem o threshold mínimo n ≥ 30', () => {
     const small = cells.filter((c) => c.cellSize < 30);
     expect(small).toEqual([]);
+  });
+
+  it('célula Brasil tem n maior que qualquer regional (pool de todas as observações)', () => {
+    const analyte = 'hdl';
+    const ageBand = '40-59';
+    const sex = 'M';
+    const brasil = cells.find(
+      (c) =>
+        c.key.analyte === analyte &&
+        c.key.region === 'Brasil' &&
+        c.key.ageBand === ageBand &&
+        c.key.sex === sex,
+    );
+    const regionals = cells.filter(
+      (c) =>
+        c.key.analyte === analyte &&
+        c.key.region !== 'Brasil' &&
+        c.key.ageBand === ageBand &&
+        c.key.sex === sex,
+    );
+    expect(brasil).toBeDefined();
+    expect(regionals.length).toBeGreaterThan(0);
+    for (const r of regionals) {
+      expect(brasil!.cellSize).toBeGreaterThan(r.cellSize);
+    }
   });
 
   it('HbA1c em mulheres 40–59 do Sudeste tem mediana plausível (5.0–5.7%)', () => {

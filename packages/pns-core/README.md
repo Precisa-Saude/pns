@@ -39,7 +39,7 @@ Se não houver célula correspondente (combinação inválida ou onda futura sem
 
 ## Caveats que você precisa entender antes de usar
 
-- **Granularidade é macro-região (5 regiões IBGE), não UF.** A subamostra laboratorial publicada da PNS não distribui UF/UPA — `regiao` é a coluna geográfica mais fina disponível. `@precisa-saude/pns` exporta `macroRegionFor(uf)` para reduzir UF do usuário para a região correspondente.
+- **Granularidade é macro-região (5 regiões IBGE) ou Brasil — nunca UF.** A subamostra laboratorial publicada da PNS não distribui UF/UPA. Para recorte nacional, passe `region: 'Brasil'` (constante `PNS_COUNTRY`) — a célula é materializada agregando todas as observações com peso amostral Horvitz-Thompson e é metodologicamente válida (PNS é nacionalmente representativa via `w_pes`). **Não** é uma média _post-hoc_ dos percentis regionais — isso estaria errado. Use `macroRegionFor(uf)` para reduzir a UF do usuário à macro-região correspondente.
 - **Pesos amostrais são obrigatórios.** Os percentis usam o peso da subamostra laboratorial (Horvitz-Thompson). Não recalcular com peso uniforme.
 - **Onda é vintage-específica.** Schema, lista de analitos e estrutura de pesos de cada onda da PNS são tratados independentemente, então o pacote está preparado para múltiplas ondas futuras. Hoje, no entanto, **apenas a onda 2013/2014–2015 tem subamostra laboratorial publicada**: a PNS 2019, embora exista e cubra outros temas (antropometria, percepção de saúde), não incluiu coleta de sangue/urina ([Fiocruz/ICICT](https://www.pns.icict.fiocruz.br/exames-laboratoriais/)). Não há onda mais recente para consultar.
 - **Triglicerídeos e glicemia em jejum não estão na onda 2014–2015** — não foram coletados na subamostra. Para HbA1c, use `'hba1c'` (Z034 no dicionário Fiocruz).
@@ -56,7 +56,7 @@ Se não houver célula correspondente (combinação inválida ou onda futura sem
 | `creatinina`       | Z025       | mg/dL   |
 | `hemoglobina`      | Z007       | g/dL    |
 
-Estratificação: 5 regiões × 4 faixas etárias (`18-29`, `30-39`, `40-59`, `60+`) × 2 sexos = **240 células**, todas com n ≥ 30 na onda 2014–2015.
+Estratificação: 6 recortes geográficos (5 macro-regiões IBGE + `Brasil`) × 4 faixas etárias (`18-29`, `30-39`, `40-59`, `60+`) × 2 sexos × 6 analitos = **288 células**, todas com n ≥ 30 na onda 2014–2015.
 
 ## Citação
 
