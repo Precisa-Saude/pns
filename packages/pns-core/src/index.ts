@@ -17,6 +17,8 @@ export type {
   PercentileLookupInput,
   PercentileLookupResult,
   PnsAnalyte,
+  PnsCountry,
+  PnsRegion,
   PnsWave,
   Sex,
 } from './types.js';
@@ -24,6 +26,7 @@ export {
   AGE_BANDS,
   BRAZILIAN_UFS,
   MACRO_REGIONS,
+  PNS_COUNTRY,
   PNS_WAVES,
   SEXES,
   UF_TO_MACRO_REGION,

@@ -3,6 +3,7 @@ import {
   type BrazilianUF,
   type MacroRegion,
   type PnsAnalyte,
+  type PnsRegion,
   type PnsWave,
   type Sex,
   UF_TO_MACRO_REGION,
@@ -24,7 +25,8 @@ export interface Observation {
 export interface CellKey {
   ageBand: AgeBand;
   analyte: PnsAnalyte;
-  region: MacroRegion;
+  /** Macro-região IBGE ou `'Brasil'` para o recorte nacional. */
+  region: PnsRegion;
   sex: Sex;
   wave: PnsWave;
 }

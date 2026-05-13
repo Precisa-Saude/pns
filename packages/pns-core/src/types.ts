@@ -5,6 +5,22 @@ export const MACRO_REGIONS = ['Norte', 'Nordeste', 'Sudeste', 'Sul', 'Centro-Oes
 export type MacroRegion = (typeof MACRO_REGIONS)[number];
 
 /**
+ * Sentinela usada como valor de `region` no lookup quando o consumidor quer
+ * o percentil **nacional** (todas as macro-regiões agregadas com peso
+ * amostral Horvitz-Thompson). PNS é uma pesquisa nacionalmente
+ * representativa via `w_pes`, então este valor é metodologicamente válido —
+ * não é uma média ponderada *post-hoc* dos percentis regionais (isso
+ * estaria errado), e sim o percentil calculado sobre todas as observações
+ * de uma vez. Materializado pelo pipeline `pns-archive` ao lado das
+ * células regionais e embarcado na tabela de percentis.
+ */
+export const PNS_COUNTRY = 'Brasil' as const;
+export type PnsCountry = typeof PNS_COUNTRY;
+
+/** Valor aceito pelo lookup como recorte geográfico: macro-região ou Brasil. */
+export type PnsRegion = MacroRegion | PnsCountry;
+
+/**
  * UFs e o mapeamento UF → macro-região continuam exportados como utilitário
  * (consumidores frequentemente têm a UF do usuário e precisam reduzir
  * para macro-região antes de consultar percentis). A subamostra
@@ -95,7 +111,11 @@ export type PnsAnalyte =
 export interface PercentileLookupInput {
   ageBand: AgeBand;
   analyte: PnsAnalyte;
-  region: MacroRegion;
+  /**
+   * Macro-região (`Norte`, `Nordeste`, ...) ou `Brasil` para o recorte
+   * nacional. Veja `PNS_COUNTRY`.
+   */
+  region: PnsRegion;
   sex: Sex;
   value: number;
   wave: PnsWave;
