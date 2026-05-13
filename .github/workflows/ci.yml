@@ -68,5 +68,5 @@ jobs:
       release_sha: ${{ needs.release.outputs.release_sha }}
       # Newline-separated list of package directories. One per line.
       packages: |
-
+        packages/pns-core
     secrets: inherit
