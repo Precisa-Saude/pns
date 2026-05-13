@@ -41,7 +41,7 @@ Se não houver célula correspondente (combinação inválida ou onda futura sem
 
 - **Granularidade é macro-região (5 regiões IBGE), não UF.** A subamostra laboratorial publicada da PNS não distribui UF/UPA — `regiao` é a coluna geográfica mais fina disponível. `@precisa-saude/pns` exporta `macroRegionFor(uf)` para reduzir UF do usuário para a região correspondente.
 - **Pesos amostrais são obrigatórios.** Os percentis usam o peso da subamostra laboratorial (Horvitz-Thompson). Não recalcular com peso uniforme.
-- **Onda é vintage-específica.** Schema, lista de analitos e estrutura de pesos de cada onda da PNS são tratados independentemente. A onda 2014–2015 tem analitos diferentes da 2019.
+- **Onda é vintage-específica.** Schema, lista de analitos e estrutura de pesos de cada onda da PNS são tratados independentemente, então o pacote está preparado para múltiplas ondas futuras. Hoje, no entanto, **apenas a onda 2013/2014–2015 tem subamostra laboratorial publicada**: a PNS 2019, embora exista e cubra outros temas (antropometria, percepção de saúde), não incluiu coleta de sangue/urina ([Fiocruz/ICICT](https://www.pns.icict.fiocruz.br/exames-laboratoriais/)). Não há onda mais recente para consultar.
 - **Triglicerídeos e glicemia em jejum não estão na onda 2014–2015** — não foram coletados na subamostra. Para HbA1c, use `'hba1c'` (Z034 no dicionário Fiocruz).
 - **Faixas de referência clínica não estão aqui.** Use `@precisa-saude/fhir` para "valor está dentro do normal?" e `@precisa-saude/pns` para "valor está em qual percentil populacional?". São perguntas distintas.
 
