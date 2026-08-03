@@ -12,5 +12,6 @@
     "security": "security@precisa-saude.com.br"
   },
   "name": "pns",
-  "owner": "Precisa-Saude"
+  "owner": "Precisa-Saude",
+  "publishPackages": ["packages/pns-core"]
 }
