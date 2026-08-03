@@ -13,5 +13,6 @@
   },
   "name": "pns",
   "owner": "Precisa-Saude",
-  "publishPackages": ["packages/pns-core"]
+  "publishPackages": ["packages/pns-core"],
+  "ignoreTemplates": ["eslint.config.js"]
 }
