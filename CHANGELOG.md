@@ -1,3 +1,23 @@
+## [1.3.2](https://github.com/Precisa-Saude/pns/compare/v1.3.1...v1.3.2) (2026-10-10)
+
+### Bug Fixes
+
+* **ci:** guard de release compara desde a última release, não o push ([#20](https://github.com/Precisa-Saude/pns/issues/20)) ([d8b53bc](https://github.com/Precisa-Saude/pns/commit/d8b53bc9a6488be7f30d68ec27cb3fce47b082c9))
+* **ci:** publish-watch aceita pacote sem tag quando bate com o package.json ([#19](https://github.com/Precisa-Saude/pns/issues/19)) ([093edbb](https://github.com/Precisa-Saude/pns/commit/093edbbdb67cd65c19523147b92bd091f844d543)), closes [#48](https://github.com/Precisa-Saude/pns/issues/48) [tooling#52](https://github.com/Precisa-Saude/tooling/issues/52)
+* **ci:** publish-watch compara a versão do pacote, não a maior tag ([#18](https://github.com/Precisa-Saude/pns/issues/18)) ([cb95914](https://github.com/Precisa-Saude/pns/commit/cb959146e3febf279719630981266ff0c4caef70)), closes [tooling#51](https://github.com/Precisa-Saude/tooling/issues/51)
+* quebra volta a gerar versão maior ([#23](https://github.com/Precisa-Saude/pns/issues/23)) ([415fbde](https://github.com/Precisa-Saude/pns/commit/415fbdebb450f02b94081a1804ca7a268358672a))
+
+### CI/CD
+
+* adotar tooling v3 versionado com política de revisão ([#24](https://github.com/Precisa-Saude/pns/issues/24)) ([dc46572](https://github.com/Precisa-Saude/pns/commit/dc46572f09c9347c348a3f6f8e4f5b4fbf560861))
+* definir política explícita para revisão externa ([#25](https://github.com/Precisa-Saude/pns/issues/25)) ([2d31957](https://github.com/Precisa-Saude/pns/commit/2d31957366fc88c84521894c0e63f6bf279d5311))
+* sincroniza template de review-dispatch (pr_number como number) ([#22](https://github.com/Precisa-Saude/pns/issues/22)) ([d91207f](https://github.com/Precisa-Saude/pns/commit/d91207f746dd9f22ee81a00ea70d01a5842f8c92))
+
+### Chores
+
+* **ci:** sincroniza templates do cli 1.13.1 ([#17](https://github.com/Precisa-Saude/pns/issues/17)) ([4aa3803](https://github.com/Precisa-Saude/pns/commit/4aa3803e3c8d39d0230321598e48ee2afbbeba04)), closes [tooling#47](https://github.com/Precisa-Saude/tooling/issues/47) [tooling#48](https://github.com/Precisa-Saude/tooling/issues/48) [tooling#50](https://github.com/Precisa-Saude/tooling/issues/50)
+* **ci:** sincroniza templates e declara divergências deliberadas ([#16](https://github.com/Precisa-Saude/pns/issues/16)) ([36a2a7c](https://github.com/Precisa-Saude/pns/commit/36a2a7cf284deb01b18c7ad2e2db5cbc7fae0fb5))
+
 ## [1.3.1](https://github.com/Precisa-Saude/pns/compare/v1.3.0...v1.3.1) (2026-08-03)
 
 ### Bug Fixes
